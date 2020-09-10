@@ -61,7 +61,7 @@ class ArticlesController extends Controller
         $articulo->descripcion = $request->descripcion;
         $articulo->categoria = $request->categoria;
         $articulo->detalles = $request->detalles;
-        $articulo->link = $request->link;
+        //$articulo->link = $request->link;
         $articulo->slug = $request->slug;
         $articulo->save();   
         
@@ -188,6 +188,30 @@ class ArticlesController extends Controller
         }
        
         
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function links(){
+        return response()->json([
+            'datos' => 'ji jeñor'
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeLinks(Request $request){
+        return response()->json([
+            'data' => 'llega storelinks',
+            're' => $request->link
+        ]);
     }
 
 }

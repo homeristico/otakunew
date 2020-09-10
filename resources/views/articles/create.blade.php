@@ -30,10 +30,10 @@
 			<label for="" class="color">Detalles</label>
 			<textarea name="detalles" class="form-control"></textarea>
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label for="" class="color">Link</label>
 			<textarea name="link" class="form-control"></textarea>
-		</div>
+		</div> -->
 		<div class="form-group">
 			<label for="" class="color">Slug</label>
 			<input type="text" name="slug" class="form-control" required>

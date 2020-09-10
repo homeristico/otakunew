@@ -14,6 +14,7 @@
     <script src="{{ asset('js/zoom.js') }}" defer></script>  
     <script src="{{ asset('js/imagen.js') }}" defer></script>  
     <script src="{{ asset('js/video.js') }}" defer></script>
+    <script src="{{ asset('js/listarlinks.js') }}" defer></script>
      
     
   

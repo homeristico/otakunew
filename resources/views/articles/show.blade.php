@@ -6,24 +6,46 @@
       
             <h2 class="text-center orange my-3">{{ $articulo->titulo}}</h2>  
        
-<div class="row white my-3 card">
-            <div class="row container">
-                <div class="col-md-12">
-                    <img class="center card my-5 img-fluid" src="/images/{{$articulo -> imagen}}" style="height: 24rem; width: 35rem;" alt="Card image cap Responsive image">
-                    <p class="card-body my-4" >{{ $articulo -> descripcion}}</p>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <p class="my-4 text-left card-body">{{ $articulo -> detalles}}</p>
+            <div class="row white my-3 card">
+                <div class="row container">
+                    <div class="col-md-12">
+                        <img class="center card my-5 img-fluid" src="/images/{{$articulo -> imagen}}" style="height: 24rem; width: 35rem;" alt="Card image cap Responsive image">
+                        <p class="card-body my-4" >{{ $articulo -> descripcion}}</p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p class="my-4 text-left card-body">{{ $articulo -> detalles}}</p>
+                                </div>
+                                <div class="col-md-2">
+                                
+                                </div>
+                                <div class="col-md-5">
+                                    <!-- <a href="{{ $articulo->link }}}" target="_blank" class="btn btn-danger btn-lg my-5">Descargar</a> -->
+                                    <button id="listaLinks" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Descargar</button>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                            
-                             </div>
-                             <div class="col-md-5">
-                                <a href="{{ $articulo->link }}}" target="_blank" class="btn btn-danger btn-lg my-5">Descargar</a>
-                             </div>
-                         </div>
                 </div>
             </div> 
+
+            <!-- MODAL LINKS DE DESCARGA -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">links Descargar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="bodyModal">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                      
+                    </div>
+                    </div>
+                </div>
+            </div>
+                <!-- FIN MODAL -->
 
                  <!-- IMAGENES -->
                  <img id="imgid"> 
@@ -83,14 +105,15 @@
             </div>
             @endif
 
-               <!-- ERRORES VIDEOS E IMAGENES -->
-               @if($errors->any())
+            <!-- ERRORES VIDEOS E IMAGENES -->
+            @if($errors->any())
                 <ul>
                     @foreach($errors->all() as $error)
                         <li class="alert alert-danger">{{$error}}</li>
                     @endforeach
                 </ul>                
             @endif
+
              <!-- SUBIR VIDEOS -->
             @if(Auth::user() && Auth::user()->rol == "administrador")
             <div class="row white my-3 card">
@@ -107,7 +130,29 @@
                 </div>
             </div>
             @endif
-            
+
+             <!-- SUBIR LINKS -->
+          @if(Auth::user() && Auth::user()->rol == "administrador")
+            <div class="row white my-3 card">
+                <div class="col-md-12 my-2">
+                    <form id="linkForm" class="form-group">
+                    @csrf
+                        <div class="form-group">
+                            <label for="">Link</label>
+                            <input name="articulo_id" type="hidden" value="{{ $articulo->id }}">
+                            <input name="slug" type="hidden" value="{{ $articulo->slug }}">
+                            <input name="link" type="text"> 
+                            <div id="loader" >
+                                <button type="submit" class="btn btn-primary">Subir</button>
+                            </div>                                                                        
+                        </div>
+                        
+                    </form>
+
+                </div>
+            </div>
+            @endif
+            <!-- FIN SUBIR LINKS -->
             
 
           
@@ -177,4 +222,4 @@
 
 
 
-@endsection
+@endsection 
