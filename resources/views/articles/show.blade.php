@@ -37,10 +37,12 @@
                         </button>
                     </div>
                     <div class="modal-body" id="bodyModal">
-                        ...
+                        @foreach($links as $link)
+                            <a href="{{$link->link}}" target="_blank">{{$link->link}}</a>
+                        @endforeach
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                      
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>                      
                     </div>
                     </div>
                 </div>
@@ -141,7 +143,7 @@
                             <label for="">Link</label>
                             <input name="articulo_id" type="hidden" value="{{ $articulo->id }}">
                             <input name="slug" type="hidden" value="{{ $articulo->slug }}">
-                            <input name="link" type="text"> 
+                            <input id="link" name="link" type="text"> 
                             <div id="loader" >
                                 <button type="submit" class="btn btn-primary">Subir</button>
                             </div>                                                                        

@@ -10,6 +10,7 @@ use otakunew\Comentario;
 use otakunew\Imagen;
 use otakunew\Video;
 use otakunew\User;
+use otakunew\Download;
 use otakunew\Mail\ArticuloNotification;
 use Illuminate\Support\Facades\Mail;
 use otakunew\Http\Requests\CreateArticleRequest;
@@ -84,7 +85,8 @@ class ArticlesController extends Controller
         $video = Video::where('articulo_id',$articulo_id)->get();
         $imagen = Imagen::where('articulo_id',$articulo_id)->get();
         $comentarios = DB::table('comentarios')->where('articulo_id', $articulo_id)->get();
-        return view('articles.show',compact('articulo'))->with('comentarios',$comentarios)->with('imagen',$imagen)->with('video',$video);
+        $links = Download::where('articulo_id',$articulo_id)->get();
+        return view('articles.show',compact('articulo'))->with('comentarios',$comentarios)->with('imagen',$imagen)->with('video',$video)->with('links',$links);
     }
 
     /**
@@ -189,18 +191,7 @@ class ArticlesController extends Controller
        
         
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function links(){
-        return response()->json([
-            'datos' => 'ji jeñor'
-        ]);
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -208,10 +199,19 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function storeLinks(Request $request){
-        return response()->json([
-            'data' => 'llega storelinks',
-            're' => $request->link
-        ]);
+
+        $link = new Download();
+        $link->link = $request->link;
+        $link->articulo_id = $request->articulo_id;
+
+        if($link->save()){
+            return response()->json([
+                'success' => true,
+                'message' => 'link guardado correctamente.'
+            ]);
+        }else{
+            return response()->json(['success' => false]);
+        }        
     }
 
 }

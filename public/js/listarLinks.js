@@ -1,24 +1,13 @@
 
 
-const listar = document.getElementById('listaLinks');
+
 const bodyModal = document.querySelector('#bodyModal');
 const loader = document.getElementById('loader');
 let linkForm = document.querySelector('#linkForm');
+const link = document.getElementById('link');
 
-
-listar.addEventListener('click',ListarLinkMethod);
-linkForm.addEventListener('submit',subirLink);
-
-function ListarLinkMethod(){
-    console.log('listar');
-    fetch('http://localhost:8000/api/articulos/links')
-        .then(datos => datos.json())
-        .then(res => {
-            bodyModal.innerHTML = res;
-            console.log(res)
-        })
-        
-
+if(linkForm){
+    linkForm.addEventListener('submit',subirLink);
 }
 
 function subirLink(e){
@@ -35,10 +24,15 @@ function subirLink(e){
         })
         .then(datos => datos.json())
         .then(res => {
-            console.log(res);
-            loader.innerHTML = `
-                <button type="submit" class="btn btn-primary">Subir</button>
-            `;
+            if(res.success){
+                console.log(res.message);
+                link.value = '';
+                loader.innerHTML = `
+                    <button type="submit" class="btn btn-primary">Subir</button>
+                `;
+            }else{
+                console.log('ocurrio un error.')
+            }            
         })
         .catch(error => {
             console.log(error)
